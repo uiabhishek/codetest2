@@ -1,0 +1,82 @@
+<!doctype html>
+<html ng-app="signupApp">
+  <head>
+    <title>Sign Up Form</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="bootstrap.min.css">
+	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+	<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>    
+	<script src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+	<!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.3/angular.min.js"></script>
+	<script src="signup.js"></script>
+    <link rel="stylesheet" href="signup.css">
+	
+  </head>
+  <body ng-controller="SignUpController" class="container">
+    <header role="header"><h1>SignUP</h1></header>
+	<section>
+	<div class="row">
+	 <div class="col-md-12">
+	 <div class="alert alert-{{status}}" role="alert" ng-show="msg.length>0"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><b>{{msg}}.</b></div>
+	 <form id="signupForm" name="signupForm" role="form" novalidate="" autocomplete="off" method="POST"  action="" class="form-horizontal" role="form">
+      <div class="row form-group removeDefaultMargin">       
+        <div class="col-md-6">
+		  <label for="firstName" class="control-label">First Name <i class="red fa fa-asterisk"></i></label> 
+          <input type="text" class="form-control" id="firstName" name="firstName" ng-model="signupFormData.firstName" placeholder="First Name" data-ng-required="true">
+		  <span class="label label-danger error-field" data-ng-show="signupFormData.submitted && signupForm.firstName.$error.required">Required!</span>
+		  
+        </div>
+		<div class="col-md-6">
+		  <label for="lastName" class="control-label">Last Name</label> 
+          <input type="text" class="form-control" id="lastName" name="lastName" ng-model="signupFormData.lastName" placeholder="Last Name">
+        </div>
+      </div>
+	  <div class="form-group removeDefaultMargin">       
+        <div class="col-md-6">
+		  <label for="email" class="control-label">Email <i class="red fa fa-asterisk"></i></label> 
+          <input type="email" class="form-control" id="email" name="email" ng-model="signupFormData.email" placeholder="Email" data-ng-required="true" ng-blur="validateEmail($event,signupForm)">
+		  <span class="label label-danger error-field" data-ng-show="signupFormData.submitted && signupForm.email.$error.required">Required!</span>
+		  <span class="label label-danger error-field" data-ng-show="signupFormData.submitted && signupForm.email.$error.email">Check for valid email structure!</span>
+		  <span class="label label-danger error-field" data-ng-show="signupFormData.submitted && signupForm.email.$error.emailValidate">Email addresses ending in comcast.com are invalid!</span>
+        </div>
+		<div class="col-md-6">
+		  <label for="url" class="control-label">URL <i class="red fa fa-asterisk"></i></label> 
+          <input type="url" class="form-control" id="url" name="url" ng-model="signupFormData.url" placeholder="URL" data-ng-required="true">
+		  <span class="label label-danger error-field" data-ng-show="signupFormData.submitted && signupForm.url.$error.required">Required!</span>
+		  <span class="label label-danger error-field" data-ng-show="signupForm.url.$error.url">Not valid URL!</span>
+        </div>
+      </div>
+	  <div class="form-group removeDefaultMargin">       
+        <div class="col-md-6">
+		  <label for="password" class="control-label">Password <i class="red fa fa-asterisk"></i></label> 
+          <input type="password" class="form-control" id="password" name="password" ng-model="signupFormData.password" placeholder="Password" data-ng-required="true" data-ng-pattern="/[A-Za-z0-9~_&*%@$]{6,}/">
+		  <span class="label label-danger error-field" data-ng-show="signupFormData.submitted && signupForm.password.$error.required">Required!</span>
+		  <span class="label label-danger error-field" data-ng-show="signupFormData.submitted && signupForm.password.$error.pattern">Password must be minimum 6 characters long (A-Za-z0-9~_&*%@$).</span>
+        </div>
+		<div class="col-md-6">
+		  <label for="confirmPassword" class="control-label">Confirm Password <i class="red fa fa-asterisk"></i></label> 
+          <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" ng-model="signupFormData.confirmPassword" placeholder="Confirm Password" data-ng-required="true" password-match="password">
+		  <span class="label label-danger error-field" data-ng-show="signupFormData.submitted && signupForm.confirmPassword.$error.required">Required!</span>
+		  <span class="label label-danger error-field" data-ng-show="signupFormData.submitted && signupForm.confirmPassword.$error.passwordMatch">Passwords do not match.</span>
+        </div>
+      </div> 
+      <div class="form-group">
+        <div class="col-sm-10">
+          <button type="button" ng-click="submitForm($event,signupForm)" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </form>
+	 </div>
+	</div>
+	</section>
+	<footer>
+	 <p></p>
+	</footer>
+  </body>
+</html>
